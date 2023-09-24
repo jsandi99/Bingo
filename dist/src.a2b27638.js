@@ -20351,18 +20351,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 document.getElementById("generate").addEventListener("click", function (event) {
   generateWordDocument(event);
 }, false);
+function removeEmpty(song) {
+  return song != "" && song != " " && song != null && song != undefined;
+}
 function generateWordDocument(event) {
   event.preventDefault();
   var textarea = document.getElementById("songs");
   if (!textarea) return;
-  var songs = textarea.value.split("\n");
-  console.log(songs);
+  var songs = textarea.value.split("\n").filter(removeEmpty);
+  var title = document.getElementById("fname").value;
   var files = document.getElementById("numfiles").value;
   var columnes = document.getElementById("numcolumnes").value;
   var cells = files * columnes;
-  console.log("cells: " + cells);
   var num = document.getElementById("num").value;
-  console.log("num: " + num);
   var cartrons = [];
   var cartro;
   var auxset;
@@ -20394,7 +20395,6 @@ function generateWordDocument(event) {
     error++;
     if (!iguals) {
       cartrons.push(cartro);
-      console.log(cartrons[i]);
       i++;
       error = 0;
     }
@@ -20407,26 +20407,68 @@ function generateWordDocument(event) {
     tr = [];
     for (var fil = 0; fil < files; fil++) {
       tc = [];
-      console.log("fila");
       for (var col = 0; col < columnes; col++) {
         tc.push(new _docx.TableCell({
           width: {
-            size: 3505,
-            type: "WidthType.DXA"
+            size: 100 / columnes,
+            type: _docx.WidthType.PERCENTAGE
           },
-          children: [new _docx.Paragraph(cartrons[i][columnes * fil + col])]
+          verticalAlign: _docx.VerticalAlign.CENTER,
+          margins: {
+            top: (0, _docx.convertMillimetersToTwip)(5),
+            bottom: (0, _docx.convertMillimetersToTwip)(5),
+            left: (0, _docx.convertMillimetersToTwip)(2),
+            right: (0, _docx.convertMillimetersToTwip)(2)
+          },
+          children: [new _docx.Paragraph({
+            alignment: _docx.AlignmentType.CENTER,
+            children: [new _docx.TextRun({
+              text: cartrons[i][columnes * fil + col],
+              bold: true,
+              size: 20,
+              alignment: _docx.AlignmentType.CENTER
+            })]
+          })]
         }));
-        console.log(cartrons[i][columnes * fil + col]);
       }
       tr.push(new _docx.TableRow({
-        children: tc
+        children: tc,
+        cantSplit: true
       }));
     }
     t.push(new _docx.Table({
-      columnWidths: [3505],
-      rows: tr
+      rows: [new _docx.TableRow({
+        children: [new _docx.TableCell({
+          children: [new _docx.Paragraph({
+            children: [new _docx.TextRun({
+              text: title,
+              bold: true,
+              size: 40
+            })]
+          }), new _docx.Table({
+            rows: tr
+          })],
+          borders: {
+            top: {
+              size: 1
+            },
+            bottom: {
+              size: 1
+            },
+            left: {
+              size: 1
+            },
+            right: {
+              size: 1
+            }
+          }
+        })],
+        cantSplit: true
+      })],
+      margins: {
+        bottom: (0, _docx.convertMillimetersToTwip)(30)
+      }
     }));
-    t.push(new _docx.Paragraph(""));
   }
   var doc = new _docx.Document({
     sections: [{
@@ -20434,9 +20476,7 @@ function generateWordDocument(event) {
     }]
   });
   _docx.Packer.toBlob(doc).then(function (blob) {
-    console.log(blob);
-    (0, _fileSaver.saveAs)(blob, "example.docx");
-    console.log("Document created successfully");
+    (0, _fileSaver.saveAs)(blob, "Bingo.docx");
   });
 }
 },{"docx":"node_modules/docx/build/index.js","file-saver":"node_modules/file-saver/dist/FileSaver.min.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -20464,7 +20504,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49627" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49340" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

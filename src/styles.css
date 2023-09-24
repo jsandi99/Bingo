@@ -1,5 +1,6 @@
 body {
     font-family: sans-serif;
+    background-image: url(background1.jpg);
   }
 #numcolumnes {  /*No funciona*/
   width: 2em;

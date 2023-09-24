@@ -1,4 +1,4 @@
-import { Document, Packer, Table, TableCell, TableRow, Paragraph, TextRun } from "docx";
+import { Document, Packer, Table, TableCell, TableRow, Paragraph, TextRun, WidthType, AlignmentType, VerticalAlign, convertMillimetersToTwip, BorderStyle} from "docx";
 import { saveAs } from "file-saver";
 
 // Listen for clicks on Generate Word Document button
@@ -9,20 +9,22 @@ document.getElementById("generate").addEventListener(
   },
   false
 );
+
+function removeEmpty(song){
+  return song != "" && song != " " && song !=null && song != undefined;
+}
   
 function generateWordDocument(event) {
   event.preventDefault();
     
     const textarea = document.getElementById("songs");
     if(!textarea) return;
-    const songs = textarea.value.split("\n");
-    console.log(songs);
+    const songs = textarea.value.split("\n").filter(removeEmpty);
+    const title = document.getElementById("fname").value;
     const files = document.getElementById("numfiles").value;
     const columnes = document.getElementById("numcolumnes").value;
     const cells = files * columnes;
-    console.log("cells: "+cells);
     const num = document.getElementById("num").value;
-    console.log("num: "+num);
     let cartrons = [];
     var cartro;
     var auxset;
@@ -57,7 +59,6 @@ function generateWordDocument(event) {
       if(!iguals)
       {
         cartrons.push(cartro);
-        console.log(cartrons[i]);
         i++;
         error = 0;
       }
@@ -72,35 +73,85 @@ function generateWordDocument(event) {
       for(var fil = 0; fil < files; fil++)
       {
         tc = [];
-        console.log("fila");
         for(var col = 0; col < columnes; col++)
         {
           tc.push(new TableCell({
-            width: {
-                size: 3505,
-                type: "WidthType.DXA",
+            width: { 
+              size: 100 / columnes, 
+              type: WidthType.PERCENTAGE,
             },
-            children: [new Paragraph(cartrons[i][columnes*fil+col])]}),);
-            console.log(cartrons[i][columnes*fil+col]);
+            verticalAlign: VerticalAlign.CENTER,
+            margins: {
+              top: convertMillimetersToTwip(5),
+              bottom: convertMillimetersToTwip(5),
+              left: convertMillimetersToTwip(2),
+              right: convertMillimetersToTwip(2),
+            },
+            children: [
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({                    
+                    text: cartrons[i][columnes*fil+col],
+                    bold: true,
+                    size: 20,
+                    alignment: AlignmentType.CENTER,
+                  })
+                ]
+              })]}));
         }
-        tr.push(new TableRow({children: tc,}),);
+        tr.push(new TableRow({
+          children: tc,
+          cantSplit: true,
+        }),);
       }
       t.push(new Table({
-        columnWidths: [3505],
-        rows: tr,}));
-      t.push(new Paragraph(""));
+        rows: [new TableRow({
+          children: [new TableCell({
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({                    
+                    text: title,
+                    bold: true,
+                    size: 40,
+                  })]}),
+              new Table({
+                rows: tr,
+              }),
+            ],
+            borders: {
+              top: {
+                size: 1
+              },
+              bottom: {
+                size: 1
+              },
+              left: {
+                size: 1
+              },
+              right: {
+                size: 1
+              },
+            },
+          }),],
+          cantSplit: true
+        }),],
+        margins: {
+          bottom: convertMillimetersToTwip(30),
+        },
+      }));
     }
   
   const doc = new Document({
       sections: [{
-          children: t,
+          children: 
+            t,
       }],
   });
     
       Packer.toBlob(doc).then((blob) => {
-        console.log(blob);
-        saveAs(blob, "example.docx");
-        console.log("Document created successfully");
+        saveAs(blob, "Bingo.docx");
       });
 }
 
