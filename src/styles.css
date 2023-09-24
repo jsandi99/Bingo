@@ -1,6 +1,6 @@
 body {
     font-family: sans-serif;
-    background-image: url(background1.jpg);
+    background-image: url(https://github.com/jsandi99/Bingo/blob/main/background1.jpg?raw=true);
   }
 #numcolumnes {  /*No funciona*/
   width: 2em;
