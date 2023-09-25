@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   background-color: blue;
-  background-image: url("../background1.jpg");
+  background-image: url("/background1.d5d2ef88.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -14,3 +14,5 @@ body {
   font-size: 70px;
   color: white;
 }
+
+/*# sourceMappingURL=/styles.dd855970.css.map */
