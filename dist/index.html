@@ -8,19 +8,24 @@
 	<link rel="icon" type="image/x-icon" href="/favicon.2e70f008.png">
 <script src="/styles.dd855970.js"></script></head>
 
-<body>   
-	<h1 id="title">Generador de Bingos Musicals</h1>
-	<label>Títol del bingo:</label>
-	<input type="text" id="fname" name="fname" value="BINGO MUSICAL!" placeholder="BINGO MUSICAL!"><br><br>
-	<label>Tamany:  </label>
-	<input type="number" id="numfiles" name="numfiles" min="1" max="10" value="3">
-	<label> files i </label>
-	<input type="number" id="numcolumnes" name="numcolumnes" min="1" max="10" value="5">	
-	<label>columnes</label><br><br>
-	<label>Quantitat: </label>
-	<input type="number" id="num" name="num" min="1" value="100">
-	<h3>Cançons</h3>
-	<textarea id="songs" name="songs" rows="15" cols="80" placeholder="“Rosas” - La oreja de Van Gogh
+<body>  	
+	<div id="titlebox">
+		<h1 id="title">Generador de</h1><br>
+		<h1 id="title">Bingos Musicals</h1>
+	</div>
+	<div id="separador">
+		<div id="propietats">
+			<h2 id="requadreTitol">TÍTOL</h2>
+			<input type="text" id="titol" name="titol" value="BINGO MUSICAL!" placeholder="BINGO MUSICAL!">
+			<h2 id="requadreTamany">FILES X COLUMNES</h2>
+			<input type="number" id="filcol" name="numfiles" min="1" max="10" value="3">
+			<input type="number" id="filcol" name="numcolumnes" min="1" max="10" value="5">
+			<h2 id="requadreTamany">QUANTITAT</h2>
+			<input type="number" id="titol" name="num" min="1" value="100">
+			<button id="generate">GENERAR BINGO</button>
+		</div>
+		<div>
+			<textarea id="songs" name="songs" placeholder="“Rosas” - La oreja de Van Gogh
 “Feliz Navidad” 
 “Ande, ande, ande la Marimorena” - Pica-Pica
 “Nunca debí enamorarme” - Camela
@@ -30,11 +35,13 @@
 “La isla del amor” - Demarco flamenco, Maki
 “Soldadito marinero” - Fito y fitipldis
 “Malamente” - Rosalía
-..."></textarea><br><br><br>
-	<div id="app"></div>
-	<button id="generate">Genera el Bingo!</button>
-	<script src="/src.a2b27638.js">
-</script>
+..."></textarea>
+		</div>
+	</div> 
+	
+	<script src="/src.a2b27638.js"></script>
+	
+	
 </body>
 
 </html>

@@ -19,12 +19,18 @@ function generateWordDocument(event) {
     
     const textarea = document.getElementById("songs");
     if(!textarea) return;
+    console.log("1");
     const songs = textarea.value.split("\n").filter(removeEmpty);
-    const title = document.getElementById("fname").value;
-    const files = document.getElementById("numfiles").value;
-    const columnes = document.getElementById("numcolumnes").value;
+    console.log(songs);
+    const title = document.getElementById("titol").value;
+    console.log(title);
+    const files = document.getElementsByName("numfiles")[0].value;
+    console.log(files);
+    const columnes = document.getElementsByName("numcolumnes")[0].value;
+    console.log(columnes);
     const cells = files * columnes;
-    const num = document.getElementById("num").value;
+    const num = document.getElementsByName("num")[0].value;
+    console.log(num);
     let cartrons = [];
     var cartro;
     var auxset;

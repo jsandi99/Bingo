@@ -20358,12 +20358,18 @@ function generateWordDocument(event) {
   event.preventDefault();
   var textarea = document.getElementById("songs");
   if (!textarea) return;
+  console.log("1");
   var songs = textarea.value.split("\n").filter(removeEmpty);
-  var title = document.getElementById("fname").value;
-  var files = document.getElementById("numfiles").value;
-  var columnes = document.getElementById("numcolumnes").value;
+  console.log(songs);
+  var title = document.getElementById("titol").value;
+  console.log(title);
+  var files = document.getElementsByName("numfiles")[0].value;
+  console.log(files);
+  var columnes = document.getElementsByName("numcolumnes")[0].value;
+  console.log(columnes);
   var cells = files * columnes;
-  var num = document.getElementById("num").value;
+  var num = document.getElementsByName("num")[0].value;
+  console.log(num);
   var cartrons = [];
   var cartro;
   var auxset;
@@ -20504,7 +20510,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54875" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55562" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
